@@ -1,0 +1,5 @@
+<p [class]="color">Este es el pie</p>
+<button (click)="changeColor('red')">Red</button>
+<button (click)="changeColor('purple')">Purple</button>
+<p [class.deleted]="state">Prueba con variables booleanas</p>
+<input type="checkbox" name="state" [(ngModel)]="state"/>
