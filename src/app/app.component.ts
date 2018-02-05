@@ -20,7 +20,11 @@ export class AppComponent
     let task : Task
     this.lastId = 0
 
-    // Some mock to test
+    // Some mock
+    task = new Task( this.lastId, "AAA", State.toDo )
+    this.lastId ++
+    this.task_list.push( task )
+
     task = new Task( this.lastId, "1Kg Tomatoes", State.toDo )
     this.lastId ++
     this.task_list.push( task )
@@ -41,7 +45,7 @@ export class AppComponent
     this.lastId ++
     this.task_list.push( task )
 
-    task = new Task( this.lastId, "Morirse que ya va tocando", State.toDo )
+    task = new Task( this.lastId, "1.000L Beer", State.toDo )
     this.lastId ++
     this.task_list.push( task ) 
   }
@@ -57,7 +61,7 @@ export class AppComponent
   {
     for ( let i = 0; i < this.task_list.length; i ++ )
     {
-      if ( this.task_list[ i ].getId() == task.getId() )
+      if ( this.task_list[ i ].getId() === task.getId() )
       {
         this.task_list.splice( i, 1 )
         break // Unique ID, so seek and destroy. No reason to keep iterating the loop.
