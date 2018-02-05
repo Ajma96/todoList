@@ -20,7 +20,7 @@ export class AppComponent
     let task : Task
     this.lastId = 0
 
-    // Some default tasks
+    // Some mock to test
     task = new Task( this.lastId, "1Kg Tomatoes", State.toDo )
     this.lastId ++
     this.task_list.push( task )
