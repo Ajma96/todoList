@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Task } from './models/task';
+import { Component, state } from '@angular/core'
+import { Task } from './models/task'
+import { State } from './utils/utils.state'
 
 @Component
 ({
@@ -12,56 +13,54 @@ export class AppComponent
 {
   task_list : Array <Task> = new Array()
   lastId    : number
+  task_text : string
 
   constructor()
   {
     let task : Task
     this.lastId = 0
-    let active : boolean = false
 
-    task = new Task( this.lastId,  "1Kg Tomatoes", active )
+    // Some default tasks
+    task = new Task( this.lastId, "1Kg Tomatoes", State.toDo )
     this.lastId ++
     this.task_list.push( task )
 
-    task = new Task( this.lastId, "250g Seitan", active )
+    task = new Task( this.lastId, "250g Seitan", State.onGoing )
     this.lastId ++
     this.task_list.push( task )
 
-    task = new Task( this.lastId, "1Kg Potatoes", !active )
+    task = new Task( this.lastId, "1Kg Potatoes", State.done )
     this.lastId ++
     this.task_list.push( task )
 
-    task = new Task( this.lastId, "Some pistachios", active )
+    task = new Task( this.lastId, "Some pistachios", State.done )
     this.lastId ++
     this.task_list.push( task )
 
-    task = new Task( this.lastId, "Buy a light bulb for the kitchen", active )
+    task = new Task( this.lastId, "Buy a light bulb for the kitchen", State.onGoing )
     this.lastId ++
     this.task_list.push( task )
 
-    task = new Task( this.lastId, "Morirse que ya va tocando", active )
+    task = new Task( this.lastId, "Morirse que ya va tocando", State.toDo )
     this.lastId ++
     this.task_list.push( task ) 
   }
 
-  task_text : string
-
   addTask()
   {
-    let task : Task = new Task ( this.lastId, this.task_text, false )
+    let task : Task = new Task ( this.lastId, this.task_text, State.toDo )
     this.lastId ++
     this.task_list.push( task )
   }
 
-
-  deleteTask( id : number )
+  deleteTask( task : Task )
   {
     for ( let i = 0; i < this.task_list.length; i ++ )
     {
-      if ( this.task_list[ i ].getId() == id )
+      if ( this.task_list[ i ].getId() == task.getId() )
       {
         this.task_list.splice( i, 1 )
-        break // ID única. Una vez lo encuentra lo borra. No tiene sentido seguir iterando.
+        break // Unique ID, so seek and destroy. No reason to keep iterating the loop.
       }
     }
   }

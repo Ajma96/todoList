@@ -1,10 +1,12 @@
+import { State } from '../utils/utils.state'
+
 export class Task
 {
     constructor
     (
-        private id     : number,
-        private text   : string,
-        private active : boolean
+        private id    : number,
+        private text  : string,
+        private state : State
     ) {}
 
     public getId()
@@ -17,8 +19,42 @@ export class Task
         return this.text
     }
 
-    public getActivity()
+    public getState()
     {
-        return this.active
+        return this.state
     }
+
+    private setState( state : State )
+    {
+        this.state = state
+    }
+
+    public setNextState()
+    {
+        switch ( this.getState() )
+        {
+            case State.toDo:
+              this.setState( State.onGoing )
+  
+              break
+  
+            case State.onGoing:
+              this.setState( State.done )
+        }
+    }
+
+    public setPreviousState()
+    {
+        switch ( this.getState() )
+        {
+            case State.onGoing:
+              this.setState( State.toDo )
+  
+              break
+  
+            case State.done:
+              this.setState( State.onGoing )
+        }
+    }
+
 }

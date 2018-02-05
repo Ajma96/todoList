@@ -1,19 +1,21 @@
 <h1> <b> TASK MANAGER </b> </h1>
 
 <hr>
-Task: <input type = "text" [(ngModel)] = "task_text"/>
-<button (click) = "addTask()">Add this task</button>
+Task: <input type = "text" [(ngModel)] = "task_text"/> <button (click) = "addTask()">Add this task</button>
 <hr>
 
 <ol>
     <ng-template ngFor let-task [ngForOf] = "task_list">
 
-      <li>
-        <input type = "checkbox" [(ngModel)] = "task.active"/>
-        <span *ngIf = 'task.active'   > <s> {{ task.getText() }} </s> </span>
-        <span *ngIf = '!(task.active)'>       {{ task.getText() }}        </span>
-        <button (click) = "deleteTask( task.getId() )"> Delete this task </button>
-      </li>
+      <p [class] = "task.getState()">
+
+        {{ task.getText() }}
+        
+        <button (click) = "deleteTask( task )"> Delete this task </button>
+        <button *ngIf = "task.getState() != 'toDo'" (click) = "task.setPreviousState()"> Set previous state   </button>
+        <button *ngIf = "task.getState() != 'done'" (click) = "task.setNextState()"> Set next state </button>
+
+      </p>
 
     </ng-template>
 </ol>
